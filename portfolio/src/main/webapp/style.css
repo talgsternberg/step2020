@@ -9,7 +9,7 @@
 
 
 .post {
-    border: 8px double rgba(158, 88, 158, 0.171);
+    border: 8px double rgba(219, 16, 219, 0.411);
     text-align: left;
     margin-right: 30%;
     margin-left: auto;
@@ -84,4 +84,26 @@ li a:hover {
 .fa-linkedin {
   background: #007bb5;
   color: white;
+}
+
+.MagicSW {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  
+}
+
+.MagicSW:hover {background-color: #3e8e41}
+
+.MagicSW:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }

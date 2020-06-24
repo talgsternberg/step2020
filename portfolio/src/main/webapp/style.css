@@ -43,6 +43,27 @@
   text-align: center;
 }
 
+#button {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: rgba(192, 44, 147, 0.37);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+#button:hover {background-color: #a12e88b4}
+
+#button:active {
+  background-color: #941a8091;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -86,7 +107,7 @@ li a:hover {
   color: white;
 }
 
-.MagicSW {
+.MSW {
   padding: 15px 25px;
   font-size: 24px;
   text-align: center;
@@ -97,12 +118,11 @@ li a:hover {
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
-  
 }
 
-.MagicSW:hover {background-color: #3e8e41}
+.MSW:hover {background-color: #3e8e41}
 
-.MagicSW:active {
+.MSW:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);

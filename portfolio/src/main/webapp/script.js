@@ -17,7 +17,11 @@
  */
 function addRandomFact() {
   const facts =
-      ['If I was stuck on a desert island, I would bring a good book', 'My favorite animal is a lizard', 'I grew up in Boston, MA', 'The food I eat most is Cheerios', 'When I graduate, I plan on moving to Australia', 'I learned to surf when I was eight', 'I was the cross country captain for my high school team', 'My favorite color is yellow', 'I am super interested in the ocean and marine life'];
+      ['If I was stuck on a desert island, I would bring a good book', 
+      'My favorite animal is a lizard', 'I grew up in Boston, MA', 
+      'The food I eat most is Cheerios', 'When I graduate, I plan on moving to Australia', 
+      'I learned to surf when I was eight', 'I was the cross country captain for my high school team', 
+      'My favorite color is yellow', 'I am super interested in the ocean and marine life'];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];

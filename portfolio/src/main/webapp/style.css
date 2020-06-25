@@ -110,6 +110,8 @@ li a:hover {
 
 .MSW {
   padding: 15px 7px;
+  display: inline-block;
+  margin-bottom: 5%;
   font-size: 19px;
   text-align: center;
   cursor: pointer;

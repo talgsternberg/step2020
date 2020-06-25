@@ -15,18 +15,31 @@
 /**
  * Adds a random fact to the page.
  */
-function addRandomFact() {
-  const facts =
+
+ const facts =
       ['If I was stuck on a desert island, I would bring a good book', 
       'My favorite animal is a lizard', 'I grew up in Boston, MA', 
       'The food I eat most is Cheerios', 'When I graduate, I plan on moving to Australia', 
       'I learned to surf when I was eight', 'I was the cross country captain for my high school team', 
       'My favorite color is yellow', 'I am super interested in the ocean and marine life'];
+function addRandomFact() {
+  var i = facts.length-1;
+  if(0 <= i){
+    // Pick a random fact
+    var factIndex = Math.floor(Math.random() * facts.length)
+    const fact = facts[factIndex];
+    
+    // Add it to the page.
+    const factContainer = document.getElementById('fact-container');
+    factContainer.innerText = fact;
+    
+    //remove this fact and the null from the array
+    facts.splice(factIndex,1);
+    console.log(facts.toString());
+    console.log(facts.length);
 
-  // Pick a random fact.
-  const fact = facts[Math.floor(Math.random() * facts.length)];
+    //update i 
+    i = facts.length-1;
+  }
 
-  // Add it to the page.
-  const factContainer = document.getElementById('fact-container');
-  factContainer.innerText = fact;
 }

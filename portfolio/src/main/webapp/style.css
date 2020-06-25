@@ -107,9 +107,10 @@ li a:hover {
   color: white;
 }
 
+
 .MSW {
-  padding: 15px 25px;
-  font-size: 24px;
+  padding: 15px 7px;
+  font-size: 19px;
   text-align: center;
   cursor: pointer;
   outline: none;
@@ -118,7 +119,7 @@ li a:hover {
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
-}
+  }
 
 .MSW:hover {background-color: #3e8e41}
 

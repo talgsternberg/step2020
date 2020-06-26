@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tal's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <ul>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="hobbies.html">Hobbies</a></li>
+        <li><a href="dartmouth.html">School/Profession</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+
+    </ul>
+    <p> </p>
+    <div id="content">
+      <div id="wrapper">
+      <h1>Outdoor Activity Quiz</h1>
+      <p>Bored at home? Take this quiz to find out 
+          which outdoor adventure you should go on this summer
+          OR an activity you can look forward to after the pandemic!</p>
+      <form id="quiz">
+        <!-- Question 1 -->
+        <h2>How would you describe yourself?</h2>
+          <label><input type="radio" name="q1" value="c1">Thrill Seeker</label><br />
+          <label><input type="radio" name="q1" value="c2">Adventurous</label><br />
+          <label><input type="radio" name="q1" value="c3">Go with the flow</label><br />
+          <label><input type="radio" name="q1" value="c4">Calm/relaxed</label><br />
+
+        <!-- Question 2 -->
+        <h2>Which environment is your favorite?</h2>
+          <label><input type="radio" name="q2" value="c1">Ocean/beach</label><br />
+          <label><input type="radio" name="q2" value="c2">Rivers/Lakes</label><br />
+          <label><input type="radio" name="q2" value="c3">Mountains</label><br />
+          <label><input type="radio" name="q2" value="c4">Fields/meadows</label><br />
+    
+        <!-- Question 3 -->
+        <h2>Which of the following excites you most?</h2>
+          <label><input type="radio" name="q3" value="c1">Shells/marine life</label><br />
+          <label><input type="radio" name="q3" value="c2">Cool fish</label><br />
+          <label><input type="radio" name="q3" value="c3"></label>Amazing views<br />
+          <label><input type="radio" name="q3" value="c4">Beautiful flowers</label><br />
+    
+        <!-- Question 4 -->
+        <h2>How much are you looking to be around other people?</h2>
+          <label><input type="radio" name="q4" value="c1">Not much. I like to adventure by myself</label><br />
+          <label><input type="radio" name="q4" value="c2">Maybe one or two close friends</label><br />
+          <label><input type="radio" name="q4" value="c3">A small group of friends</label><br />
+          <label><input type="radio" name="q4" value="c4">I want to do something with my whole family!</label><br />
+        <button type="submit" id="submit" onclick="tabulateAnswers()">Submit Your Answers</button>
+        <!-- <button type="reset" id="reset" onclick="resetAnswer()">Reset</button> -->
+      </form>
+     <div id="answer">Your result will show up here!</div>
+    </div>
+   </div>
+  </body>
+</html>

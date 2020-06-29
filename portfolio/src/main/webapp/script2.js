@@ -47,11 +47,16 @@ function addRandomFact() {
 function tabulateAnswers() {
   // initialize variables for each choice's score
   // If you add more choices and outcomes, you must add another variable here.
+  
   //*******
-  cvals = ['c1','c2','c3','c4'];
-  cscores = [0,0,0,0];
+  //cvals = ['c1','c2','c3','c4'];
+  //cscores = [0,0,0,0];
+  var cdict = {'c1': 0,
+            'c2': 0,
+            'c3': 0,
+            'c4': 0}
   
-  
+ 
   // get a list of the radio inputs on the page
   var choices = document.getElementById('quiz').getElementsByTagName('input');
   console.log(choices);
@@ -60,28 +65,32 @@ function tabulateAnswers() {
     // if the radio is checked..
     if (choices[i].checked) {
       // add 1 to that choice's score
-      if (choices[i].value =cvals[i]) {
-        cscores[i] = cscores[i] + 1;
-        console.log('here!');
+
+      cdict[choices[i].value] = cdict[choices[i].value] + 1; 
+      
       }
     }
-  }
   // Find out which choice got the highest score.
-  var maxscore = Math.max.apply(Math,cscores);
+  console.log(cdict);
+  var vals = Object.keys(cdict).map(function(key){
+    return cdict[key]});
+  
+  var maxscore = Math.max.apply(Math,vals);
+  console.log('maxscore:')
   console.log(maxscore);
   
   // Display answer corresponding to that choice
   var answerbox = document.getElementById('answer');
-  if (cscores[0] == maxscore) { 
+  if (cdict['c1'] == maxscore) { 
     answerbox.innerHTML= "You should go surfing! You like to take risks and enjoy fast paced and challenging activities!";
   }
-  if (cscores[1] == maxscore) { 
+  if (cdict['c2'] == maxscore) { 
     answerbox.innerHTML = "You should go canoeing/kayaking! If you want a bit more thrill be sure to head down the rapids. Remember to wear a lifejacket!";
   }
-  if (cscores[2] == maxscore) { 
+  if (cdict['c3'] == maxscore) { 
     answerbox.innerHTML = "You should go hiking! Grab some sneakers and get ready to climb the mountains for that perfect view. Don't forget a camera!";
   }
-  if (cscores[3] == maxscore) { 
+  if (cdict['c4'] == maxscore) { 
     answerbox.innerHTML = "You should have a picnic in the park/on a field. Maybe make a special treat like cupcakes and bring a kite or frisbee!";
   }
 }

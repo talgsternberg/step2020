@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Tal's Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script2.js"></script>
   </head>
   <body>
     <ul>
@@ -22,7 +22,7 @@
       <p>Bored at home? Take this quiz to find out 
           which outdoor adventure you should go on this summer
           OR an activity you can look forward to after the pandemic!</p>
-      <form id="quiz">
+      <form id="quiz" target="#">
         <!-- Question 1 -->
         <h2>How would you describe yourself?</h2>
           <label><input type="radio" name="q1" value="c1">Thrill Seeker</label><br />
@@ -50,10 +50,10 @@
           <label><input type="radio" name="q4" value="c2">Maybe one or two close friends</label><br />
           <label><input type="radio" name="q4" value="c3">A small group of friends</label><br />
           <label><input type="radio" name="q4" value="c4">I want to do something with my whole family!</label><br />
-        <button type="submit" id="submit" onclick="tabulateAnswers()">Submit Your Answers</button>
-        <!-- <button type="reset" id="reset" onclick="resetAnswer()">Reset</button> -->
+        <button type="submit" id="submit" onclick="tabulateAnswers(); return false;">Submit Your Answers</button>
+        <button type="reset" id="reset" onclick="resetAnswer()">Reset</button> 
       </form>
-     <div id="answer">Your result will show up here!</div>
+      <div id="answer">Your result will show up here!</div>
     </div>
    </div>
   </body>

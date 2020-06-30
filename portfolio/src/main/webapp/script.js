@@ -43,7 +43,7 @@ function addRandomFact() {
 
 
 function getRandomGreeting() {
-  console.log('Fetching a random greeting.');
+  console.log('Fetching a greeting.');
 
   // The fetch() function returns a Promise because the request is asynchronous.
   const responsePromise = fetch('/data');

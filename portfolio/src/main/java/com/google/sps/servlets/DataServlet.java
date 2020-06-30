@@ -14,6 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.annotation.WebServlet;
@@ -25,17 +28,24 @@ import com.google.gson.Gson;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  ArrayList<String> greetings=new ArrayList<String>();//Creating arraylist 
-  public DataServlet(){
+  ArrayList<String> greetings = new ArrayList<String>(); //Creating arraylist 
+  public DataServlet() {
     greetings.add("hello");
     greetings.add("whats up?");
     greetings.add("nice to see you!");
-    }
+  }
     
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    String greetingJson = new Gson().toJson(greetings);
-    response.getWriter().println(greetingJson);
+    String greetingJson = new Gson().toJson(greetings); //set to Json
+    response.getWriter().println(greetingJson); //send response
+    
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("greeting", greetingJson);
+    
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); //instantiate datastoreclass
+    datastore.put(taskEntity); //put greetings in datastore 
+
   }
 }

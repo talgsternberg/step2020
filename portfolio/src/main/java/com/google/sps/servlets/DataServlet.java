@@ -40,12 +40,15 @@ public class DataServlet extends HttpServlet {
     response.setContentType("text/html;");
     String greetingJson = new Gson().toJson(greetings); //set to Json
     response.getWriter().println(greetingJson); //send response
-    
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("greeting", greetingJson);
-    
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); //instantiate datastoreclass
-    datastore.put(taskEntity); //put greetings in datastore 
 
+  }
+
+@Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String greetingJson = new Gson().toJson(greetings); //set to Json
+    Entity taskEntity = new Entity("Task"); //label entity
+    taskEntity.setProperty("greeting", greetingJson); //set entity
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); //instantiate datastoreclass
+    datastore.put(taskEntity); //put greetings in datastore
   }
 }

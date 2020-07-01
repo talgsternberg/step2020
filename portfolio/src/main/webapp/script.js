@@ -42,24 +42,25 @@ function addRandomFact() {
 }
 
 
-
-/** Fetches comments from the server and adds them to the DOM. */
+/** Fetches tasks from the server and adds them to the DOM. */
 function loadComments() {
   fetch('/data').then(response => response.json()).then((UserComments) => {
-    const commentListElement = document.getElementById('comment-list');
+    const CommentListElement = document.getElementById('comment-list');
     UserComments.forEach((comment) => {
-      commentListElement.appendChild(createCommentElement(comment));
+      CommentListElement.appendChild(createCommentElement(comment));
     })
   });
 }
 
 /** Creates an element that represents a task, including its delete button. */
-function createCommentElement(task) {
+function createCommentElement(comment) {
   const commentElement = document.createElement('li');
-  taskElement.className = 'comment';
+  commentElement.className = 'comment';
 
-  const commentElement = document.createElement('span');
-  commentElement.innerText = comment.text;
-  commentElement.appendChild(titleElement);
+  const textElement = document.createElement('span');
+  textElement.innerText = comment.text;
+
+  commentElement.appendChild(textElement);
   return commentElement;
 }
+

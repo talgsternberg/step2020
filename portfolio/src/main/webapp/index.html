@@ -26,10 +26,18 @@
  
       <p>Post a comment here!</p>
       <form method="POST" action="/data">
-      <input type="text" name="text" />
-      <br/>
-      <button id = "button">Submit Comment</button>
+        <input type="text" name="text" />
+        <br/>
+        <button id = "button">Submit Comment</button>
+
       </form>
+    
+      <p>How many comments should display:</p>
+      <form method="POST" action="/data">
+        <input type="number" name="choice" min="0" max="15" value="0">
+        <br/><br/>
+        <button id = "button">Submit #</button>
+        </form>
       <hr/>
       <div id = 'comments-section'>
         <p>Page Comments:</p>

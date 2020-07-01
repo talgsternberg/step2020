@@ -15,6 +15,7 @@
 package com.google.sps.servlets;
 
 import com.google.appengine.api.datastore.DatastoreService;
+import java.util.*;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -42,20 +43,27 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    int userChoice = 1; //getUserChoice(request);
+    int userChoice = getChoice(request);
+    System.out.println("user choice: ");
+    System.out.println(userChoice);
+    System.out.println("number of existing comments: ");
+    System.out.println(results.countEntities());
 
 
+
+    //goal of this is to add userChoice number of comments to list
+    //if there are fewer than userChoice comments, add all comments then stop adding 
     List<Comment> UserComments = new ArrayList<>();
     int commentNum = 0;
     for (Entity entity : results.asIterable()) {
-        if(commentNum < userChoice){
+        if(commentNum < userChoice || commentNum < results.countEntities()){//this line doesn't recognize 'size()' as a valid method 
           long id = entity.getKey().getId();
           String text = (String) entity.getProperty("text");
           long timestamp = (long) entity.getProperty("timestamp");
 
           Comment comment = new Comment(id, text, timestamp);
           UserComments.add(comment);
-          commentNum++;
+          commentNum = commentNum + 1;
         } 
     }
 

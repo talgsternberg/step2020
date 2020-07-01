@@ -42,14 +42,21 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<Comment> UserComments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String text = (String) entity.getProperty("text");
-      long timestamp = (long) entity.getProperty("timestamp");
+    int userChoice = 1; //getUserChoice(request);
 
-      Comment comment = new Comment(id, text, timestamp);
-      UserComments.add(comment);
+
+    List<Comment> UserComments = new ArrayList<>();
+    int commentNum = 0;
+    for (Entity entity : results.asIterable()) {
+        if(commentNum < userChoice){
+          long id = entity.getKey().getId();
+          String text = (String) entity.getProperty("text");
+          long timestamp = (long) entity.getProperty("timestamp");
+
+          Comment comment = new Comment(id, text, timestamp);
+          UserComments.add(comment);
+          commentNum++;
+        } 
     }
 
     Gson gson = new Gson();
@@ -72,5 +79,31 @@ public class DataServlet extends HttpServlet {
     datastore.put(commentEntity);
 
     response.sendRedirect("/index.html");
+  }
+
+
+   
+   
+    /** Returns the choice entered by the user, or 3 if the choice was invalid. */
+  private int getChoice(HttpServletRequest request) {
+    // Get the input from the form.
+    String ChoiceString = request.getParameter("choice");
+
+    // Convert the input to an int.
+    int userChoice;
+    try {
+      userChoice = Integer.parseInt(ChoiceString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + ChoiceString);
+      return 3;
+    }
+
+    // Check that the input is between 1 and 15.
+    if (userChoice < 1 || userChoice > 15) {
+      System.err.println("Choice is out of range: " + ChoiceString);
+      return 3;
+    }
+
+    return userChoice;
   }
 }

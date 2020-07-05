@@ -29,15 +29,17 @@
         <input type="text" name="text" />
         <br/>
         <button id = "button">Submit Comment</button>
-
       </form>
     
       <p>How many comments should display:</p>
+     
+     
       <form method="POST" action="/data">
         <input type="number" name="choice" min="0" max="15" value="0">
         <br/><br/>
-        <button id = "button">Submit #</button>
-        </form>
+         <!-- shouldn't load comments until clicked but this isn't working -->
+        <button id = "button" onClick="loadComments">Submit #</button>
+      </form>
       <hr/>
       <div id = 'comments-section'>
         <p>Page Comments:</p>

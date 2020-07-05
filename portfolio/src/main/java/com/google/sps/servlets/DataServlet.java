@@ -30,6 +30,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+ import com.google.appengine.api.datastore.FetchOptions;
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -42,35 +44,40 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
+    //if user hasn't specified:
     int userChoice = getChoice(request);
     System.out.println("user choice: ");
     System.out.println(userChoice);
-    System.out.println("number of existing comments: ");
-    System.out.println(results.countEntities());
+
+
 
 
 
     //goal of this is to add userChoice number of comments to list
-    //if there are fewer than userChoice comments, add all comments then stop adding 
+    // --> the error I'm getting is that everytime it displays only 3 comments and creates an "undefined" comment
     List<Comment> UserComments = new ArrayList<>();
-    int commentNum = 0;
-    for (Entity entity : results.asIterable()) {
-        if(commentNum < userChoice || commentNum < results.countEntities()){//this line doesn't recognize 'size()' as a valid method 
+
+    for (Entity entity : results.asIterable()) {//iterate through the comments
+        if(UserComments.size() < userChoice){//if the user comments hasn't exceeded the desired num of comments
+          
+          //get all the properties
           long id = entity.getKey().getId();
           String text = (String) entity.getProperty("text");
           long timestamp = (long) entity.getProperty("timestamp");
-
+         
+         //create new comments object
           Comment comment = new Comment(id, text, timestamp);
+         
+         //add to user comments
           UserComments.add(comment);
-          commentNum = commentNum + 1;
+
         } 
     }
 
     Gson gson = new Gson();
 
     response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(UserComments));
+    response.getWriter().println(gson.toJson(UserComments));//write all the desired comments to page
   }
   
 

@@ -44,10 +44,10 @@ function addRandomFact() {
 
 /** Fetches tasks from the server and adds them to the DOM. */
 function loadComments() {
-  fetch('/data').then(response => response.json()).then((UserComments) => {
-    const CommentListElement = document.getElementById('comment-list');
-    UserComments.forEach((comment) => {
-      CommentListElement.appendChild(createCommentElement(comment));
+  fetch('/data?choice=' + document.getElementById('numInput').value).then(response => response.json()).then((UserComments) => {
+  const CommentListElement = document.getElementById('comment-list');
+  UserComments.forEach((comment) => {
+    CommentListElement.appendChild(createCommentElement(comment));
     })
   });
 }

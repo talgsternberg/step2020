@@ -46,7 +46,7 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     //if user hasn't specified:
     int userChoice = getChoice(request);
-    System.out.println("user choice: ");
+    System.out.println("request (userChoice): ");
     System.out.println(userChoice);
 
 
@@ -95,6 +95,10 @@ public class DataServlet extends HttpServlet {
 
     response.sendRedirect("/index.html");
   }
+
+
+
+
 
 
    

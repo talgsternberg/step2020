@@ -46,6 +46,7 @@ function addRandomFact() {
 function loadComments() {
   fetch('/data?choice=' + document.getElementById('numInput').value).then(response => response.json()).then((UserComments) => {
   const CommentListElement = document.getElementById('comment-list');
+  CommentListElement.innerHTML = "";
   UserComments.forEach((comment) => {
     CommentListElement.appendChild(createCommentElement(comment));
     })

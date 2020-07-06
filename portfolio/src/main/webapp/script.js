@@ -42,36 +42,26 @@ function addRandomFact() {
 }
 
 
-function getRandomGreeting() {
-  console.log('Fetching a greeting.');
-
-  // The fetch() function returns a Promise because the request is asynchronous.
-  const responsePromise = fetch('/data');
-
-  // When the request is complete, pass the response into handleResponse().
-  responsePromise.then(handleResponse);
+/** Fetches tasks from the server and adds them to the DOM. */
+function loadComments() {
+  fetch('/data?choice=' + document.getElementById('numInput').value).then(response => response.json()).then((UserComments) => {
+  const CommentListElement = document.getElementById('comment-list');
+  CommentListElement.innerHTML = "";
+  UserComments.forEach((comment) => {
+    CommentListElement.appendChild(createCommentElement(comment));
+    })
+  });
 }
 
-/**
- * Handles response by converting it to text and passing the result to
- * addQuoteToDom().
- */
-function handleResponse(response) {
-  console.log('Handling the response.');
+/** Creates an element that represents a task, including its delete button. */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
 
-  // response.text() returns a Promise, because the response is a stream of
-  // content and not a simple variable.
-  const textPromise = response.text();
+  const textElement = document.createElement('span');
+  textElement.innerText = comment.text;
 
-  // When the response is converted to text, pass the result into the
-  // addQuoteToDom() function.
-  textPromise.then(addQuoteToDom);
+  commentElement.appendChild(textElement);
+  return commentElement;
 }
 
-/** Adds a random quote to the DOM. */
-function addQuoteToDom(quote) {
-  console.log('Adding quote to dom: ' + quote);
-
-  const quoteContainer = document.getElementById('quote-container');
-  quoteContainer.innerText = quote;
-}

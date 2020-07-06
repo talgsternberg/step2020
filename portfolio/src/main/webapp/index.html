@@ -23,14 +23,28 @@
       <p>Click here to get a random fact about me!:</p>
       <button id = "button" onclick="addRandomFact()">About Me</button>
       <div id="fact-container"></div>
-      <p>Click here to see a random greeting:</p>
-      <button onclick="getRandomGreeting()">Greet Me!</button>
-      <div id="quote-container"></div>
-
+ 
+      <p>Post a comment here!</p>
       <form method="POST" action="/data">
-        <input type="text" name="title" />
-          <br/>
+        <input type="text" name="text" />
+        <br/>
+        <button id = "button">Submit Comment</button>
       </form>
+    
+      <p>How many comments should display:</p>
+     
+     
+      <form method="GET" action="/data">
+        <input id = "numInput" type="number" name="choice" min="1" max="15" value="1">
+        <br/><br/>
+         <!-- shouldn't load comments until clicked but this isn't working -->
+        <button type='submit' id = "button" onClick="loadComments(); return false;">Submit #</button>
+      </form>
+      <hr/>
+      <div id = 'comments-section'>
+        <p>Page Comments:</p>
+        <ul id="comment-list"></ul>
+      <div>
     </div>
   </body>
 </html>

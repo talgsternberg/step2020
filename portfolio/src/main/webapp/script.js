@@ -80,3 +80,16 @@ function deleteComment(comment) {
   params.append('id', comment.id);
   fetch('/delete-comment', {method: 'POST', body: params});
 }
+
+function UserLogin(){
+   status = fetch('/user?loggedIn');
+   if (status == "false"){
+       document.getElementById("userOnly").style.display = "none";
+       document.getElementById("notLoggedIn").style.display = "block";
+   }
+   else if (status == "true"){
+       document.getElementById("userOnly").style.display = "block";
+       document.getElementById("notLoggedIn").style.display = "none";
+    }
+   
+}

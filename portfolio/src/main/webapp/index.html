@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="loadComments()">
+  <body>
     <ul>
         <li><a class="active" href="index.html">Home</a></li>
         <li><a href="hobbies.html">Hobbies</a></li>
@@ -38,7 +38,7 @@
         <input type="number" name="choice" min="0" max="15" value="0">
         <br/><br/>
          <!-- shouldn't load comments until clicked but this isn't working -->
-        <button id = "button" onClick="loadComments">Submit #</button>
+        <button type='submit' id = "button" onClick="loadComments(); return false;">Submit #</button>
       </form>
       <hr/>
       <div id = 'comments-section'>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onLoad = "UserLogin()"">
+  <body onLoad = "UserLogin()">
     <ul>
         <li><a class="active" href="index.html">Home</a></li>
         <li><a href="hobbies.html">Hobbies</a></li>
@@ -25,10 +25,20 @@
       <div id="fact-container"></div>
  
       <p>Post a comment here!</p>
+      
+      
       <div id = 'notLoggedIn'>
           <p>Login To Comment</p>
-          <button target="/user">Login</button>
+          <button target="loginUrl">Login</button>
       </div>
+      
+      
+      <div id = 'logOut'>
+          <p>Logout</p>
+          <button method="GET" action="/user" target="/" name="loggedIn" value="false">Log Out</button>
+      </div>
+
+
 
       <form id='userOnly' method="POST" action="/data">
         <input type="text" name="text" />

@@ -81,15 +81,21 @@ function deleteComment(comment) {
   fetch('/delete-comment', {method: 'POST', body: params});
 }
 
+
 function UserLogin(){
-   status = fetch('/user?loggedIn');
-   if (status == "false"){
-       document.getElementById("userOnly").style.display = "none";
-       document.getElementById("notLoggedIn").style.display = "block";
-   }
-   else if (status == "true"){
-       document.getElementById("userOnly").style.display = "block";
-       document.getElementById("notLoggedIn").style.display = "none";
-    }
-   
-}
+    fetch('/user?loggedIn').then(loggedIn => loggedIn.text()).then(loggedIn => String(loggedIn)).then(loggedIn => loggedIn.trim()).then((loggedIn) => {
+        if(loggedIn[0] == 'N'){
+          document.getElementById("userOnly").style.display = "none";
+          document.getElementById("notLoggedIn").style.display = "block";
+          document.getElementById("logOut").style.display = "none";
+
+        }
+        else{
+          document.getElementById("userOnly").style.display = "block";
+          document.getElementById("notLoggedIn").style.display = "none";
+          document.getElementById("logOut").style.display = "block";
+        }
+    });
+ }
+
+

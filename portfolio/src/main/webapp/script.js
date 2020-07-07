@@ -85,12 +85,14 @@ function deleteComment(comment) {
 function UserLogin(){
     fetch('/user?loggedIn').then(loggedIn => loggedIn.text()).then(loggedIn => String(loggedIn)).then(loggedIn => loggedIn.trim()).then((loggedIn) => {
         if(loggedIn[0] == 'N'){
+          console.log("not logged");
           document.getElementById("userOnly").style.display = "none";
           document.getElementById("notLoggedIn").style.display = "block";
           document.getElementById("logOut").style.display = "none";
 
         }
         else{
+          console.log("yes logged");
           document.getElementById("userOnly").style.display = "block";
           document.getElementById("notLoggedIn").style.display = "none";
           document.getElementById("logOut").style.display = "block";

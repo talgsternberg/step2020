@@ -23,24 +23,23 @@
       <p>Click here to get a random fact about me!:</p>
       <button id = "button" onclick="addRandomFact()">About Me</button>
       <div id="fact-container"></div>
- 
-      <p>Post a comment here!</p>
+       
+      
+     
+      
+      <form id = 'notLoggedIn' method="GET" action="loginUrl">
+        <button id = "button">Login to Comment</button>
+      </form>
+     
       
       
-      <div id = 'notLoggedIn'>
-          <p>Login To Comment</p>
-          <button target="loginUrl">Login</button>
-      </div>
-      
-      
-      <div id = 'logOut'>
-          <p>Logout</p>
-          <button method="GET" action="/user" target="/" name="loggedIn" value="false">Log Out</button>
-      </div>
-
+      <form id='logOut' method="GET" action="logoutUrl">
+        <button id = 'button'>Log Out</button>
+      </form>
 
 
       <form id='userOnly' method="POST" action="/data">
+        <p>Post a comment here!</p>
         <input type="text" name="text" />
         <br/>
         <button id = "button">Submit Comment</button>

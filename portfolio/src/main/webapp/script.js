@@ -83,6 +83,7 @@ function deleteComment(comment) {
 
 
 function UserLogin(){
+    getURL();
     fetch('/user?loggedIn').then(loggedIn => loggedIn.text()).then(loggedIn => String(loggedIn)).then(loggedIn => loggedIn.trim()).then((loggedIn) => {
         if(loggedIn[0] == 'N'){
           console.log("not logged");
@@ -98,6 +99,17 @@ function UserLogin(){
           document.getElementById("logOut").style.display = "block";
         }
     });
+}
+
+    function getURL(){
+        fetch('/user?loginUrl').then(loginUrl => loginUrl.text()).then(loginUrl => String(loginUrl)).then(loginUrl => loginUrl.trim()).then((loginUrl) => {
+          document.getElementById("notLoggedIn").innerHTML = loginUrl;
+        });
+        fetch('/user?logoutUrl').then(logoutUrl => logoutUrl.text()).then(logoutUrl => String(logoutUrl)).then(logoutUrl => logoutUrl.trim()).then((logoutUrl) => {
+            document.getElementById("logOut").innerHTML = logoutUrl;
+    });
  }
+
+
 
 

@@ -40,9 +40,6 @@ public class UserServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Log");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
     UserService userService = UserServiceFactory.getUserService();
 
     
@@ -55,40 +52,34 @@ public class UserServlet extends HttpServlet {
     String loginUrl;
     String logoutUrl;
 
-
-    for (Entity entity : results.asIterable()) {//iterate through the logs
-        //get all the properties
-        if (userService.isUserLoggedIn()) {
-          status = "In";
-          userEmail = userService.getCurrentUser().getEmail();
-          urlToRedirectToAfterUserLogsIn = "/";
-          urlToRedirectToAfterUserLogsOut = "/";
-          loginUrl = "";
-          logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-          
-        } 
-        else {
-          status = "Out";
-          urlToRedirectToAfterUserLogsIn = "/";
-          urlToRedirectToAfterUserLogsOut = "/";
-          userEmail = "";
-          loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-          logoutUrl = "";
-       
-        }
-
-        //create new log object
-        Log log = new Log(status, loginUrl, logoutUrl, userEmail);
-        //add to Logs
-         Logs.add(log);
-         
-         
+    //get all the properties
+    if (userService.isUserLoggedIn()) {
+      status = "In";
+      userEmail = userService.getCurrentUser().getEmail();
+      urlToRedirectToAfterUserLogsIn = "/";
+      urlToRedirectToAfterUserLogsOut = "/";
+      loginUrl = "";
+      logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+    } 
+        
+    else {
+      status = "Out";
+      urlToRedirectToAfterUserLogsIn = "/";
+      urlToRedirectToAfterUserLogsOut = "/";
+      userEmail = "";
+      loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      logoutUrl = "";
     }
 
-
+    //create new log object
+    Log log = new Log(status, loginUrl, logoutUrl, userEmail);
+    //add to Logs
+    Logs.add(log);
+         
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(Logs));
+
   }
 
 

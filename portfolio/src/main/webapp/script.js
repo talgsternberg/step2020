@@ -83,17 +83,16 @@ function deleteComment(comment) {
 
 
 function UserLogin(){
+    getEmail();
     getURL();
     fetch('/user?loggedIn').then(loggedIn => loggedIn.text()).then(loggedIn => String(loggedIn)).then(loggedIn => loggedIn.trim()).then((loggedIn) => {
         if(loggedIn[0] == 'N'){
-          console.log("not logged");
           document.getElementById("userOnly").style.display = "none";
           document.getElementById("notLoggedIn").style.display = "block";
           document.getElementById("logOut").style.display = "none";
 
         }
         else{
-          console.log("yes logged");
           document.getElementById("userOnly").style.display = "block";
           document.getElementById("notLoggedIn").style.display = "none";
           document.getElementById("logOut").style.display = "block";
@@ -108,6 +107,14 @@ function UserLogin(){
         fetch('/user?logoutUrl').then(logoutUrl => logoutUrl.text()).then(logoutUrl => String(logoutUrl)).then(logoutUrl => logoutUrl.trim()).then((logoutUrl) => {
             document.getElementById("logOut").innerHTML = logoutUrl;
     });
+ }
+
+ function getEmail(){
+     fetch('/user?userEmail').then(userEmail => userEmail.text()).then(userEmail => String(userEmail)).then(userEmail => userEmail.trim()).then((userEmail) => {
+          email = userEmail.split('↵');
+          console.log(email);
+     });
+
  }
 
 

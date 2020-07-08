@@ -14,38 +14,90 @@
 
 package com.google.sps.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.datastore.DatastoreService;
+import java.util.*;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Log;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
-    boolean loggedIn = false;
-
+    Query query = new Query("Log");
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
     UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+
+    
+    
+    List<Log> Logs = new ArrayList<>();
+
+
+    for (Entity entity : results.asIterable()) {//iterate through the logs
+        //get all the properties
+        if (userService.isUserLoggedIn()) {
+          String status = "In";
+          String userEmail = userService.getCurrentUser().getEmail();
+          String urlToRedirectToAfterUserLogsOut = "/";
+          String loginUrl = "";
+          String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
       
-      loggedIn = true;
-      response.getWriter().println("Logged in, " + userEmail + "!");
-      response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
-    } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      
-      loggedIn = false;
-      response.getWriter().println("Not logged in");
-      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+        } 
+        else {
+          String status = "Out";
+          String urlToRedirectToAfterUserLogsIn = "/";
+          String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+          String logoutUrl = "";
+        }
+         
+         //create new log object
+          Log log = new Log(status, loginUrl, logoutUrl, userEmail);
+         
+         //add to Logs
+         Logs.add(log);
     }
+
+
+    Gson gson = new Gson();
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(Logs));
+  }
+
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String status = request.getParameter("status");
+    String loginUrl = request.getParameter("loginUrl");
+    String logoutUrl = request.getParameter("logoutUrl");
+    String userEmail = request.getParameter("userEmail");
+
+    Entity logEntity = new Entity("Log");
+   
+    logEntity.setProperty("status", status);
+    logEntity.setProperty("loginUrl", loginUrl);
+    logEntity.setProperty("logoutUrl", logoutUrl);
+    logEntity.setProperty("userEmail", userEmail);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(logEntity);
+
+    //response.sendRedirect("/index.html");
   }
 }

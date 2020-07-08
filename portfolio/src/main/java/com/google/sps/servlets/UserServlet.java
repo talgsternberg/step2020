@@ -48,30 +48,41 @@ public class UserServlet extends HttpServlet {
     
     
     List<Log> Logs = new ArrayList<>();
+    String status;
+    String userEmail;
+    String urlToRedirectToAfterUserLogsIn;
+    String urlToRedirectToAfterUserLogsOut;
+    String loginUrl;
+    String logoutUrl;
 
 
     for (Entity entity : results.asIterable()) {//iterate through the logs
         //get all the properties
         if (userService.isUserLoggedIn()) {
-          String status = "In";
-          String userEmail = userService.getCurrentUser().getEmail();
-          String urlToRedirectToAfterUserLogsOut = "/";
-          String loginUrl = "";
-          String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-      
+          status = "In";
+          userEmail = userService.getCurrentUser().getEmail();
+          urlToRedirectToAfterUserLogsIn = "/";
+          urlToRedirectToAfterUserLogsOut = "/";
+          loginUrl = "";
+          logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+          
         } 
         else {
-          String status = "Out";
-          String urlToRedirectToAfterUserLogsIn = "/";
-          String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-          String logoutUrl = "";
+          status = "Out";
+          urlToRedirectToAfterUserLogsIn = "/";
+          urlToRedirectToAfterUserLogsOut = "/";
+          userEmail = "";
+          loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+          logoutUrl = "";
+       
         }
-         
-         //create new log object
-          Log log = new Log(status, loginUrl, logoutUrl, userEmail);
-         
-         //add to Logs
+
+        //create new log object
+        Log log = new Log(status, loginUrl, logoutUrl, userEmail);
+        //add to Logs
          Logs.add(log);
+         
+         
     }
 
 

@@ -56,19 +56,15 @@ public class UserServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       status = "In";
       userEmail = userService.getCurrentUser().getEmail();
-      urlToRedirectToAfterUserLogsIn = "/";
       urlToRedirectToAfterUserLogsOut = "/";
-      loginUrl = "";
       logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
     } 
         
     else {
       status = "Out";
       urlToRedirectToAfterUserLogsIn = "/";
-      urlToRedirectToAfterUserLogsOut = "/";
-      userEmail = "";
       loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      logoutUrl = "";
+      
     }
 
     //create new log object

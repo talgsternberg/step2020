@@ -61,6 +61,13 @@ function createCommentElement(comment) {
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
 
+  // i think this is creating an email element? Not sure what "span" is...
+  const emailElement = document.createElement('span');
+  emailElement.innerText = comment.email;
+
+  
+
+
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
@@ -70,6 +77,7 @@ function createCommentElement(comment) {
     commentElement.remove();
   });
   commentElement.appendChild(deleteButtonElement);
+  commentElement.appendChild(emailElement);
   commentElement.appendChild(textElement);
   return commentElement;
 }

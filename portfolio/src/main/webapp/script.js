@@ -93,14 +93,16 @@ function UserLogin(){
           document.getElementById("userOnly").style.display = "none";
           document.getElementById("notLoggedIn").style.display = "block";
           document.getElementById("logOut").style.display = "none";
-          document.getElementById("logInButton").href = loggedInStatus["loginUrl"];//shouldn't this redirect to login?
+          document.getElementById("logInButton").href = loggedInStatus["loginUrl"];
 
         }
         else{
           document.getElementById("userOnly").style.display = "block";
           document.getElementById("notLoggedIn").style.display = "none";
           document.getElementById("logOut").style.display = "block";
-          document.getElementById("logOutButton").href = loggedInStatus["logoutUrl"];//shouldn't this redirct to logout?
+          document.getElementById("logOutButton").href = loggedInStatus["logoutUrl"];
+          document.getElementById("poster").innerHTML = loggedInStatus["userEmail"];
+
 
         }
     });

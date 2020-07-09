@@ -8,7 +8,7 @@ public final class Comment {
   private final String text;
   private final long timestamp;
 
-  public Comment(long id, String email, String text, long timestamp) {
+  public Comment(long id, String email, String text, long timestamp) {  //adds String email
     this.id = id;
     this.email = email;
     this.text = text;

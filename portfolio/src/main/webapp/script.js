@@ -101,7 +101,7 @@ function UserLogin(){
           document.getElementById("notLoggedIn").style.display = "none";
           document.getElementById("logOut").style.display = "block";
           document.getElementById("logOutButton").href = loggedInStatus["logoutUrl"];
-          document.getElementById("poster").innerHTML = loggedInStatus["userEmail"];
+          document.getElementById("poster").value = loggedInStatus["userEmail"];
 
 
         }

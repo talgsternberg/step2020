@@ -62,11 +62,12 @@ public class DataServlet extends HttpServlet {
           //get all the properties
           long id = entity.getKey().getId();
           String text = (String) entity.getProperty("text");
+          String email = (String) entity.getProperty("email"); //retrieve email property to send
           long timestamp = (long) entity.getProperty("timestamp");
 
          
          //create new comments object
-          Comment comment = new Comment(id, text, timestamp);
+          Comment comment = new Comment(id, email, text, timestamp);
          
          //add to user comments
           UserComments.add(comment);
@@ -85,10 +86,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter("text");
     long timestamp = System.currentTimeMillis();
+    String email = request.getParameter("email"); //get email from the request
 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("email", email); //set email entity
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);

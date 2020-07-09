@@ -61,6 +61,13 @@ function createCommentElement(comment) {
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
 
+  // i think this is creating an email element? Not sure what "span" is...
+  const emailElement = document.createElement('span');
+  emailElement.innerText = comment.email;
+
+  
+
+
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
@@ -70,6 +77,7 @@ function createCommentElement(comment) {
     commentElement.remove();
   });
   commentElement.appendChild(deleteButtonElement);
+  commentElement.appendChild(emailElement);
   commentElement.appendChild(textElement);
   return commentElement;
 }
@@ -93,14 +101,16 @@ function UserLogin(){
           document.getElementById("userOnly").style.display = "none";
           document.getElementById("notLoggedIn").style.display = "block";
           document.getElementById("logOut").style.display = "none";
-          document.getElementById("logInButton").href = loggedInStatus["loginUrl"];//shouldn't this redirect to login?
+          document.getElementById("logInButton").href = loggedInStatus["loginUrl"];
 
         }
         else{
           document.getElementById("userOnly").style.display = "block";
           document.getElementById("notLoggedIn").style.display = "none";
           document.getElementById("logOut").style.display = "block";
-          document.getElementById("logOutButton").href = loggedInStatus["logoutUrl"];//shouldn't this redirct to logout?
+          document.getElementById("logOutButton").href = loggedInStatus["logoutUrl"];
+          document.getElementById("poster").value = loggedInStatus["userEmail"];
+
 
         }
     });

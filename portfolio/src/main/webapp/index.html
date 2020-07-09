@@ -39,7 +39,12 @@
 
 
       <form id='userOnly' method="POST" action="/data">
-        <p>Post a comment here!</p>
+        <p>Post a comment here as:</p>
+        
+        <!--stores email from user server in this form to send to data server-->
+        <input name = "email" id ="poster" value="" readonly />
+
+        
         <input type="text" name="text" />
         <br/>
         <button id = "button">Submit Comment</button>

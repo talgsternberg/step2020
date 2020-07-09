@@ -67,6 +67,9 @@
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
+  display: block;
+  margin-right: 30%;
+  margin-left: 30%;
 }
 
 #logInButton {
@@ -80,6 +83,9 @@
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
+  display: block;
+  margin-right: 30%;
+  margin-left: 30%;
 }
 
 #button:hover {background-color: #a12e88b4}

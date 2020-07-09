@@ -57,13 +57,18 @@ public class UserServlet extends HttpServlet {
       status = "In";
       userEmail = userService.getCurrentUser().getEmail();
       urlToRedirectToAfterUserLogsOut = "/";
+      urlToRedirectToAfterUserLogsIn = "/";
       logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
     } 
         
     else {
       status = "Out";
+      urlToRedirectToAfterUserLogsOut = "/";
       urlToRedirectToAfterUserLogsIn = "/";
       loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      userEmail = "";
       
     }
 

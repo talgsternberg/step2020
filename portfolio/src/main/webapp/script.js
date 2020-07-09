@@ -93,7 +93,7 @@ function UserLogin(){
           document.getElementById("userOnly").style.display = "none";
           document.getElementById("notLoggedIn").style.display = "block";
           document.getElementById("logOut").style.display = "none";
-          document.getElementById("logInButton").href = loggedInStatus["logoutUrl"];//shouldn't this redirect to login?
+          document.getElementById("logInButton").href = loggedInStatus["loginUrl"];//shouldn't this redirect to login?
 
         }
         else{

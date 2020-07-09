@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onLoad = "UserLogin()">
     <ul>
         <li><a class="active" href="index.html">Home</a></li>
         <li><a href="hobbies.html">Hobbies</a></li>
@@ -23,9 +23,23 @@
       <p>Click here to get a random fact about me!:</p>
       <button id = "button" onclick="addRandomFact()">About Me</button>
       <div id="fact-container"></div>
- 
-      <p>Post a comment here!</p>
-      <form method="POST" action="/data">
+       
+      
+     
+      
+      <form id = 'notLoggedIn' method="GET" >
+        <a id = "logInButton">Login to Comment</a>
+      </form>
+     
+      
+      
+      <form id='logOut' method="GET" >
+        <a id = 'logOutButton'>Log Out</a>
+      </form>
+
+
+      <form id='userOnly' method="POST" action="/data">
+        <p>Post a comment here!</p>
         <input type="text" name="text" />
         <br/>
         <button id = "button">Submit Comment</button>

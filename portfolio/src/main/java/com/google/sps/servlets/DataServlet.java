@@ -30,7 +30,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.FetchOptions;
 
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
@@ -46,8 +46,7 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     //if user hasn't specified:
     int userChoice = getChoice(request);
-    System.out.println("request (userChoice): ");
-    System.out.println(userChoice);
+    
 
 
 
@@ -64,6 +63,7 @@ public class DataServlet extends HttpServlet {
           long id = entity.getKey().getId();
           String text = (String) entity.getProperty("text");
           long timestamp = (long) entity.getProperty("timestamp");
+
          
          //create new comments object
           Comment comment = new Comment(id, text, timestamp);

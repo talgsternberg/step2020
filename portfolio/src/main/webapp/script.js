@@ -80,3 +80,37 @@ function deleteComment(comment) {
   params.append('id', comment.id);
   fetch('/delete-comment', {method: 'POST', body: params});
 }
+
+
+function UserLogin(){
+    fetch('/user?Logs').then(response => response.json()).then((Logs) => {
+        loggedInStatus = Logs[0]; // since we have an array
+        console.log(loggedInStatus["status"]);
+        console.log(loggedInStatus["loginUrl"]);
+        console.log(loggedInStatus["logoutUrl"]);
+
+        if(loggedInStatus["status"] == "Out"){
+          document.getElementById("userOnly").style.display = "none";
+          document.getElementById("notLoggedIn").style.display = "block";
+          document.getElementById("logOut").style.display = "none";
+          document.getElementById("logInButton").href = loggedInStatus["loginUrl"];//shouldn't this redirect to login?
+
+        }
+        else{
+          document.getElementById("userOnly").style.display = "block";
+          document.getElementById("notLoggedIn").style.display = "none";
+          document.getElementById("logOut").style.display = "block";
+          document.getElementById("logOutButton").href = loggedInStatus["logoutUrl"];//shouldn't this redirct to logout?
+
+        }
+    });
+}
+
+
+
+
+
+
+
+
+

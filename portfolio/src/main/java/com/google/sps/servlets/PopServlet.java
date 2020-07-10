@@ -39,7 +39,7 @@ public class PopServlet extends HttpServlet {
     
 
       String country = cells[0];
-      Integer population = Integer.valueOf(cells[2]);
+      Integer population = Integer.valueOf(cells[4]);
 
       populations.put(country, population);
     }

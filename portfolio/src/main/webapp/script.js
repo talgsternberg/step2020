@@ -117,27 +117,28 @@ function UserLogin(){
 }
 
 
+
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 /** Creates a chart and adds it to the page. */
 function drawChart() {
   const data = new google.visualization.DataTable();
-  data.addColumn('string', 'Activities');
-  data.addColumn('number', 'Number of Hours Per Day');
+  data.addColumn('string', 'activity');
+  data.addColumn('number', 'hours');
         data.addRows([
-          ['Sleeping', 7],
-          ['Running', 1],
+          ['Sleeping', 8],
+          ['Eating', 3],
           ['Classes', 3],
-          ['Studing/HW', 3],
-          ['Time w/ Friends', 5],
-          ['Geting Meals', 3],
-          ['Walking Places', 1],
-          ['Showering/Getting Ready', 1]
+          ['Studying',3],
+          ['Excercise',1],
+          ['Time w/ friends',4],
+          ['Showering/Getting Ready',1],
+          ['Walking',1]
         ]);
 
   const options = {
-    'title': 'How I Spend An Average Weekday At College',
+    'title': 'A Day At College',
     'width':500,
     'height':400
   };
@@ -146,12 +147,6 @@ function drawChart() {
       document.getElementById('chart-container'));
   chart.draw(data, options);
 }
-
-
-
-
-
-
 
 
 

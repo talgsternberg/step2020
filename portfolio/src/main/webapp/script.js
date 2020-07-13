@@ -118,31 +118,35 @@ function UserLogin(){
 
 
 
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-google.charts.load('current', {
-  'packages':['geochart'],
-  'mapsApiKey': 'AIzaSyAl6Ku-M_QVlnKXABGnQXJATCY1YpDiI_c'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
-
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Popularity'],
-          ['Germany', 200],
-          ['United States', 300],
-          ['Brazil', 400],
-          ['Canada', 500],
-          ['France', 600],
-          ['RU', 700]
+/** Creates a chart and adds it to the page. */
+function drawChart() {
+  const data = new google.visualization.DataTable();
+  data.addColumn('string', 'activity');
+  data.addColumn('number', 'hours');
+        data.addRows([
+          ['Sleeping', 8],
+          ['Eating', 3],
+          ['Classes', 3],
+          ['Studying',3],
+          ['Excercise',1],
+          ['Time w/ friends',4],
+          ['Showering/Getting Ready',1],
+          ['Walking',1]
         ]);
 
-        var options = {};
+  const options = {
+    'title': 'A Day At College',
+    'width':500,
+    'height':400
+  };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-        chart.draw(data, options);
-      }
-
+  const chart = new google.visualization.PieChart(
+      document.getElementById('chart-container'));
+  chart.draw(data, options);
+}
 
 
 

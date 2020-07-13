@@ -18,6 +18,8 @@ def MoveToRoot():
   print("Found root at", os.getcwd())
 
 
+
+
 def _VerifyHelper(f, verbose, prefix):
   if f.startswith(prefix):
     f = f[len(prefix):]
@@ -32,12 +34,17 @@ def _VerifyHelper(f, verbose, prefix):
   return 0
 
 
+
 def VerifyFilePathMatch(f, verbose):
   return _VerifyHelper(f, verbose, "step/")
 
 
+
+
 def VerifyTeachMeMatch(f, verbose):
   return _VerifyHelper(f.rstrip('`'), verbose, "~/step/")
+
+
 
 
 def VerifyLinkMatch(url, verbose):
@@ -45,7 +52,8 @@ def VerifyLinkMatch(url, verbose):
     print("Ignoring path:", url)
     return 0
 
-  if url == "https://translate.google.com/":
+
+ if url == "https://translate.google.com/":
     # Can't curl translate.google.com. Believe me, it's there.
     return 0
 
@@ -56,12 +64,12 @@ def VerifyLinkMatch(url, verbose):
       universal_newlines=True)
   code = int(process.stdout.split()[1])
 
-  #try:
-  #  code = urllib.request.urlopen(url).getcode()
-  #except urllib.error.HTTPError as exception:
-  #  code = exception.getcode()
+  try:
+    code = urllib.request.urlopen(url).getcode()
+  except urllib.error.HTTPError as exception:
+    code = exception.getcode()
 
-  if code in [200, 301, 302]:
+ if code in [200, 301, 302]:
     if verbose:
       print(SUCCESS_STRING, url)
   else:
@@ -85,7 +93,6 @@ def ProcessMdFile(filepath, verbose):
     for f in m:
       errors += VerifyLinkMatch(f, verbose)
   return errors
-
 
 
 def ProcessAllMdFiles(verbose):

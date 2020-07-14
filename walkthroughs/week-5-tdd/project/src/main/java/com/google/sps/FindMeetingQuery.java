@@ -18,6 +18,15 @@ import java.util.Collection;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    //no attendees
+    if (events == null){
+        return 0;
+    }
+
+    //no options too long of a request (how do I access time range here? THis is an error)
+    else if (TimeRange > 25){
+        return 0;
+    }
+
   }
 }

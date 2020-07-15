@@ -20,25 +20,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class FindMeetingQuery {
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    
-    //initialize availibility collection
     Collection<TimeRange> availibility;
-    
-    
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+
     //no attendees -- first test
-    if (events == null){
+    if (request.getAttendees() == null){
         availibility = Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
     //no options too long of a request (how do I access time range here? THis is an error) -- second test
-    else if (request.duration > 24){
-        //availibility = Arrays.asList();
+    else if (request.getDuration() > TimeRange.WHOLE_DAY.duration()){
+        availibility = Arrays.asList();
     }
 
     //event splits day into two options (before and after) -- third test
-    //Should this be in a check or just always happen? 
-    
+    for (Event event : events){
+        availibility =
+        Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event.getWhen()[0], false),
+            TimeRange.fromStartEnd(event.getWhen()[1], TimeRange.END_OF_DAY, true));
+        
+    }
+
     //return the collection
     return availibility;
   }

@@ -15,18 +15,31 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    //no attendees
+    
+    //initialize availibility collection
+    Collection<TimeRange> availibility;
+    
+    
+    //no attendees -- first test
     if (events == null){
-        return 0;
+        availibility = Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    //no options too long of a request (how do I access time range here? THis is an error)
-    else if (TimeRange > 25){
-        return 0;
+    //no options too long of a request (how do I access time range here? THis is an error) -- second test
+    else if (request.duration > 24){
+        //availibility = Arrays.asList();
     }
 
+    //event splits day into two options (before and after) -- third test
+    //Should this be in a check or just always happen? 
+    
+    //return the collection
+    return availibility;
   }
 }

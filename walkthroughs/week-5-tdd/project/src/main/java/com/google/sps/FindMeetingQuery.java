@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class FindMeetingQuery {
-    Collection<TimeRange> availibility;
+  Collection<TimeRange> availibility;
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+
 
     //no attendees -- first test
     if (request.getAttendees() == null){
@@ -47,18 +49,25 @@ public final class FindMeetingQuery {
     }
 
     //every attendee considered -- fourth test
-    for (String attendee : request.getAttendees()){
-        for (Event event : events){
-          event_attendees = event.getAttendees();
-          if (event_attendees.contains(attendee)){
-            availibility =
-              Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event.getWhen()start(), false),
-                TimeRange.fromStartEnd(TIME_0830AM, TIME_0900AM, false),
-                TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true));
-                //stuck...
-          }  
+    for (Event event1 : events){
+        for (Event event2 : events){
+            if (event1 != event2){
+                if(event1.getWhen().end() != event2.getWhen().start()){
+                     availibility =
+                     Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
+                        TimeRange.fromStartEnd(event1.getWhen().end(), event2.getWhen().start(), false),
+                        TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
+                        
+                }
+            }
         }
+        return availibility;
     }
+         
+   
+
+    //overlapping events -- fifth test
+
 
 
     //return the collection

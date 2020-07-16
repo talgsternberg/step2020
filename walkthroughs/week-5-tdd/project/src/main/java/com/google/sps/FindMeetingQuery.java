@@ -48,13 +48,27 @@ public final class FindMeetingQuery {
             TimeRange.fromStartEnd(event.getWhen().end(), TimeRange.END_OF_DAY, true));
     }
 
-    //fourth, fifth, sixth tests
+    //fourth, fifth, sixth, seventh (automatically covers double booking) tests
     for (Event event1 : events){
         for (Event event2 : events){
             if (event1 != event2){
 
                 //every attendee considered -- fourth test
                 if (!event1.getWhen().overlaps(event2.getWhen())){
+
+                    //just enough room
+                    if (event1.getAttendees() == event2.getAttendees()){
+                        if(event2.getWhen().start()-event1.getWhen().end() >= request.getDuration()){
+                            // ****Compilation failure
+                            //[ERROR] 
+                            ///home/talsternberg/step/walkthroughs/week-5-tdd/project/src/main/java/com/google/sps/FindMeetingQuery.java
+                            //incompatible types: possible lossy conversion from long to int 
+                            //-- solvable or go about this a different way?
+                            availibility =
+                            Arrays.asList(TimeRange.fromStartDuration(event1.getWhen().end(), request.getDuration())); // **** error from here
+                            return availibility;
+                        }
+                    }
                      availibility =
                      Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
                         TimeRange.fromStartEnd(event1.getWhen().end(), event2.getWhen().start(), false),
@@ -65,20 +79,21 @@ public final class FindMeetingQuery {
 
                 //overlapping events -- fifth test
                 else if (event1.getWhen().overlaps(event2.getWhen())){
-                    availibility =
-                    Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
-                        TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
-                    return availibility;
-                }
+                    if (event1.getWhen().contains(event2.getWhen())){
+                        availibility =
+                        Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
+                            TimeRange.fromStartEnd(event1.getWhen().end(), TimeRange.END_OF_DAY, true));
+                        return availibility;
+                    }
 
-                //nested events --sixth case
-                else if (event1.getWhen().contains(event2.getWhen())){
-                    availibility =
-                    Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
-                        TimeRange.fromStartEnd(event1.getWhen().end(), TimeRange.END_OF_DAY, true));
-                    return availibility;
+                    //nested events -- sixth test
+                    else{
+                        availibility =
+                        Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
+                            TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
+                        return availibility;
+                    }
                 }
-
             }
         }
     }

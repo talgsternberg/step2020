@@ -26,7 +26,7 @@ public final class FindMeetingQuery {
 
 
     //no attendees -- first test
-    if (request.getAttendees() == null){
+    if (request.getAttendees().isEmpty()){
         availibility = Arrays.asList(TimeRange.WHOLE_DAY);
        
         //return the collection
@@ -48,25 +48,43 @@ public final class FindMeetingQuery {
             TimeRange.fromStartEnd(event.getWhen().end(), TimeRange.END_OF_DAY, true));
     }
 
-    //every attendee considered -- fourth test
+    //fourth, fifth, sixth tests
     for (Event event1 : events){
         for (Event event2 : events){
             if (event1 != event2){
-                if(event1.getWhen().end() != event2.getWhen().start()){
+
+                //every attendee considered -- fourth test
+                if (!event1.getWhen().overlaps(event2.getWhen())){
                      availibility =
                      Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
                         TimeRange.fromStartEnd(event1.getWhen().end(), event2.getWhen().start(), false),
                         TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
-                        
+                     return availibility;
                 }
+
+
+                //overlapping events -- fifth test
+                else if (event1.getWhen().overlaps(event2.getWhen())){
+                    availibility =
+                    Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
+                        TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
+                    return availibility;
+                }
+
+                //nested events --sixth case
+                else if (event1.getWhen().contains(event2.getWhen())){
+                    availibility =
+                    Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
+                        TimeRange.fromStartEnd(event1.getWhen().end(), TimeRange.END_OF_DAY, true));
+                    return availibility;
+                }
+
             }
         }
-        return availibility;
     }
          
-   
 
-    //overlapping events -- fifth test
+    
 
 
 

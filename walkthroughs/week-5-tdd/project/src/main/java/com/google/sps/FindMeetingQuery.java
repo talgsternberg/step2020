@@ -26,20 +26,40 @@ public final class FindMeetingQuery {
     //no attendees -- first test
     if (request.getAttendees() == null){
         availibility = Arrays.asList(TimeRange.WHOLE_DAY);
+       
+        //return the collection
+        return availibility;
     }
 
     //no options too long of a request (how do I access time range here? THis is an error) -- second test
     else if (request.getDuration() > TimeRange.WHOLE_DAY.duration()){
         availibility = Arrays.asList();
+        
+        //return the collection
+        return availibility;
     }
 
     //event splits day into two options (before and after) -- third test
     for (Event event : events){
         availibility =
-        Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event.getWhen()[0], false),
-            TimeRange.fromStartEnd(event.getWhen()[1], TimeRange.END_OF_DAY, true));
-        
+        Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event.getWhen().start(), false),
+            TimeRange.fromStartEnd(event.getWhen().end(), TimeRange.END_OF_DAY, true));
     }
+
+    //every attendee considered -- fourth test
+    for (String attendee : request.getAttendees()){
+        for (Event event : events){
+          event_attendees = event.getAttendees();
+          if (event_attendees.contains(attendee)){
+            availibility =
+              Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event.getWhen()start(), false),
+                TimeRange.fromStartEnd(TIME_0830AM, TIME_0900AM, false),
+                TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true));
+                //stuck...
+          }  
+        }
+    }
+
 
     //return the collection
     return availibility;

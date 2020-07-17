@@ -23,7 +23,11 @@ public final class FindMeetingQuery {
   Collection<TimeRange> availibility;
 
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-
+     
+     //no conflict
+      if (events.isEmpty()){
+          availibility = Arrays.asList(TimeRange.WHOLE_DAY);
+      }
 
     //no attendees -- first test
     if (request.getAttendees().isEmpty()){
@@ -50,6 +54,15 @@ public final class FindMeetingQuery {
 
     //fourth, fifth, sixth, seventh (automatically covers double booking) tests
     for (Event event1 : events){
+        
+        //ignores people not attending
+        for (String attendee : request.getAttendees()){
+            if(!event1.getAttendees().contains(attendee)){
+                availibility = Arrays.asList(TimeRange.WHOLE_DAY);
+            }
+        }
+
+
         for (Event event2 : events){
             if (event1 != event2){
 
@@ -57,18 +70,20 @@ public final class FindMeetingQuery {
                 if (!event1.getWhen().overlaps(event2.getWhen())){
 
                     //just enough room
-                    if (event1.getAttendees() == event2.getAttendees()){
-                        if(event2.getWhen().start()-event1.getWhen().end() >= request.getDuration()){
-                            // ****Compilation failure
-                            //[ERROR] 
-                            ///home/talsternberg/step/walkthroughs/week-5-tdd/project/src/main/java/com/google/sps/FindMeetingQuery.java
-                            //incompatible types: possible lossy conversion from long to int 
-                            //-- solvable or go about this a different way?
-                            availibility =
-                            Arrays.asList(TimeRange.fromStartDuration(event1.getWhen().end(), request.getDuration())); // **** error from here
-                            return availibility;
+                    for (String attendee : request.getAttendees()){ //for each attendee
+                        if (event1.getAttendees().contains(attendee) && event2.getAttendees().contains(attendee)){ //if the attendee attends both events
+                            if(event2.getWhen().start()-event1.getWhen().end() >= request.getDuration()){//and there is enough time between events
+                                availibility =
+                                Arrays.asList(TimeRange.fromStartDuration(event1.getWhen().end(), (int)request.getDuration()));//add this time to availibility
+                                return availibility;
+                            }
+                            if(event2.getWhen().start()-event1.getWhen().end() < request.getDuration()){
+                                availibility = Arrays.asList();
+                                return availibility;
+                            }
                         }
                     }
+                    
                      availibility =
                      Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
                         TimeRange.fromStartEnd(event1.getWhen().end(), event2.getWhen().start(), false),

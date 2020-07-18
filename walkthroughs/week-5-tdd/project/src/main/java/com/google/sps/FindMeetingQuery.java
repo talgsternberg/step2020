@@ -20,10 +20,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class FindMeetingQuery {
-  Collection<TimeRange> availibility;
 
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-     
+    Collection<TimeRange> availibility = new ArrayList();
+    Collection<TimeRange> temp_availibility = new ArrayList();
+
+
      //no conflict
       if (events.isEmpty()){
           availibility = Arrays.asList(TimeRange.WHOLE_DAY);

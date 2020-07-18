@@ -64,6 +64,29 @@ public final class FindMeetingQuery {
 
 
         for (Event event2 : events){
+
+            //optional attendee in every attendee considered 
+            for (Event event3 : events){//new
+                if (event1 != event2 && event2!=event3){//new
+                    if (!event1.getWhen().overlaps(event2.getWhen())){
+                       if(event2.getWhen().start()-event1.getWhen().end() >= request.getDuration()){//and there is enough time between events
+                          temp_availibility = 
+                          Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, event1.getWhen().start(), false),
+                            TimeRange.fromStartEnd(event1.getWhen().end(), event2.getWhen().start(), false),
+                            TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
+                          if (temp_availibility.overlaps(event3.getWhen()) && event3.getDuration() >=request.getDuration()){
+                              availibility = 
+                              Arrays.asList(TimeRange.fromStartEnd(event1.getWhen().end(), event2.getWhen().start(), false),
+                                TimeRange.fromStartEnd(event2.getWhen().end(), TimeRange.END_OF_DAY, true));
+                           }
+                        }
+                    }
+                }
+
+                }//new
+            
+           
+           
             if (event1 != event2){
 
                 //every attendee considered -- fourth test
